@@ -231,21 +231,33 @@ def quantizedland_4(x, y, u):
 
   return (xp/5, yp/5)
 
+def fix_input(x, y, u, map):
+  x = 100.0 if x > 100.0 else x
+  x = -100.0 if x < -100.0 else x
+  
+  y = 100.0 if y > 100.0 else y
+  y = -100.0 if y < -100.0 else y
+  
+  u = 1.0 if u > 1.0 else u
+  u = -1.0 if u < -1.0 else u
+  
+  return map(x, y, u)
+
 maps = [
-  linearland_1,
-  linearland_2,
-  linearland_3,
-  linearland_4,
-  nonlinearland_1,
-  nonlinearland_2,
-  nonlinearland_3,
-  nonlinearland_4,
-  switchingland_1,
-  switchingland_2,
-  switchingland_3,
-  switchingland_4,
-  quantizedland_1,
-  quantizedland_2,
-  quantizedland_3,
-  quantizedland_4,
+  lambda x, y, u: fix_input(x, y, u, linearland_1),
+  lambda x, y, u: fix_input(x, y, u, linearland_2),
+  lambda x, y, u: fix_input(x, y, u, linearland_3),
+  lambda x, y, u: fix_input(x, y, u, linearland_4),
+  lambda x, y, u: fix_input(x, y, u, nonlinearland_1),
+  lambda x, y, u: fix_input(x, y, u, nonlinearland_2),
+  lambda x, y, u: fix_input(x, y, u, nonlinearland_3),
+  lambda x, y, u: fix_input(x, y, u, nonlinearland_4),
+  lambda x, y, u: fix_input(x, y, u, switchingland_1),
+  lambda x, y, u: fix_input(x, y, u, switchingland_2),
+  lambda x, y, u: fix_input(x, y, u, switchingland_3),
+  lambda x, y, u: fix_input(x, y, u, switchingland_4),
+  lambda x, y, u: fix_input(x, y, u, quantizedland_1),
+  lambda x, y, u: fix_input(x, y, u, quantizedland_2),
+  lambda x, y, u: fix_input(x, y, u, quantizedland_3),
+  lambda x, y, u: fix_input(x, y, u, quantizedland_4),
 ]

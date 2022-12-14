@@ -1,5 +1,3 @@
-import sys
-
 from websocket_server import WebsocketServer
 
 # import maps
@@ -12,20 +10,19 @@ from control import convert_message, get_best_input
 # Create a websocket server in port 6660
 ws = WebsocketServer(port=6660)
 
-# Get arguments
-args = sys.argv
-
 # Global variables
 last_input = 0
 
 # Create a function to handle the connection
 def new_client(client, server):
-  print('New client connected and was given id %d' % client['id'])
-  server.send_message_to_all('Hey all, a new client has joined us')
+  print('New client connected and was given id: %d!' % client['id'])
+  
+  # Send a first input to the client
+  server.send_message(client, str(0))
 
 # Create a function to handle the disconnection
 def client_left(client, server):
-  print('Client(%d) disconnected' % client['id'])
+  print('Client (%d) disconnected!' % client['id'])
 
 # Create a function to handle the message
 def message_received(client, server, message):
@@ -34,10 +31,6 @@ def message_received(client, server, message):
 
   # Get the game, land, level, player, target, boxes, skulls
   land, level, player, target, boxes, skulls = convert_message(message)
-
-  # Show the land, level, player, target, boxes, skulls
-  if ('--debug' in args):
-    print('Land: %d, Level: %d, Player: %s, Target: %s, Boxes: %s, Skulls: %s' % (land, level, player, target, boxes, skulls))
 
   # Get the current map equation
   current_i = (land - 1) * 4 + (level - 1)

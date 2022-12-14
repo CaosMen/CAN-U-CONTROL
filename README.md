@@ -1,4 +1,4 @@
-<h1 align="center">
+<h1 align="center" style="font-size: 4rem">
   Can U Control?
 </h1>
 
